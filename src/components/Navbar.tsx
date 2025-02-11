@@ -1,6 +1,7 @@
 
 import { Menu, Search, User, MapPin, Book, Gift } from "lucide-react";
 import { Button } from "./ui/button";
+import { Link } from "react-router-dom";
 
 export const Navbar = () => {
   return (
@@ -8,13 +9,15 @@ export const Navbar = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
-            <h1 className="text-xl font-bold text-white">Roamery</h1>
+            <Link to="/" className="text-xl font-bold text-white">
+              Roamery
+            </Link>
           </div>
 
           <div className="hidden md:flex items-center space-x-8">
-            <NavLink icon={MapPin} text="Explore" />
-            <NavLink icon={Book} text="Articles" />
-            <NavLink icon={Gift} text="Deals" />
+            <NavLink to="/explore" icon={MapPin} text="Explore" />
+            <NavLink to="/articles" icon={Book} text="Articles" />
+            <NavLink to="/deals" icon={Gift} text="Deals" />
             <Button className="bg-primary hover:bg-primary/90">
               <User className="h-4 w-4 mr-2" />
               Sign In
@@ -30,12 +33,12 @@ export const Navbar = () => {
   );
 };
 
-const NavLink = ({ icon: Icon, text }: { icon: any; text: string }) => (
-  <a
-    href="#"
+const NavLink = ({ to, icon: Icon, text }: { to: string; icon: any; text: string }) => (
+  <Link
+    to={to}
     className="flex items-center text-gray-300 hover:text-white transition-colors"
   >
     <Icon className="h-4 w-4 mr-2" />
     <span>{text}</span>
-  </a>
+  </Link>
 );
