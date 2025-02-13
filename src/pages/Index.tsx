@@ -2,18 +2,46 @@
 import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
 import { Card } from "@/components/ui/card";
-import { Calendar, MapPin, Users } from "lucide-react";
+import { Calendar, MapPin, Users, Globe2, Mountain, Camera } from "lucide-react";
+import { useState } from "react";
 
 const Index = () => {
+  const [statCount, setStatCount] = useState({
+    travelers: 15482,
+    destinations: 234,
+    trips: 45921
+  });
+
   return (
     <div className="min-h-screen bg-[#222222]">
       <Navbar />
       <Hero />
       
-      <main className="container mx-auto px-4 py-16">
+      <main className="container mx-auto px-4">
+        {/* Stats Section */}
+        <section className="py-20 border-b border-white/10">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <StatsCard
+              icon={Users}
+              count={statCount.travelers}
+              label="Active Travelers"
+            />
+            <StatsCard
+              icon={Globe2}
+              count={statCount.destinations}
+              label="Indian Destinations"
+            />
+            <StatsCard
+              icon={Mountain}
+              count={statCount.trips}
+              label="Trips Planned"
+            />
+          </div>
+        </section>
+
         {/* Featured Destinations */}
-        <section className="mb-16">
-          <h2 className="text-3xl font-bold mb-8 text-white">Popular Destinations</h2>
+        <section className="py-20">
+          <h2 className="text-3xl font-bold mb-8 text-white">Popular Indian Destinations</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {featuredDestinations.map((destination, index) => (
               <Card key={index} className="glass-card hover-scale overflow-hidden">
@@ -37,8 +65,8 @@ const Index = () => {
         </section>
 
         {/* Community Highlights */}
-        <section className="mb-16">
-          <h2 className="text-3xl font-bold mb-8 text-white">Community Highlights</h2>
+        <section className="py-20 border-t border-white/10">
+          <h2 className="text-3xl font-bold mb-8 text-white">Indian Travel Stories</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {communityPosts.map((post, index) => (
               <Card key={index} className="glass-card p-6">
@@ -63,41 +91,71 @@ const Index = () => {
             ))}
           </div>
         </section>
+
+        {/* Mission & Vision */}
+        <section className="py-20 border-t border-white/10">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <div className="space-y-6">
+              <h2 className="text-3xl font-bold text-white">Our Mission</h2>
+              <p className="text-gray-300 leading-relaxed">
+                To connect Indian travelers with authentic experiences, fostering a community
+                that celebrates the diverse cultural heritage and natural beauty of India.
+                We aim to make travel planning seamless while promoting responsible tourism.
+              </p>
+            </div>
+            <div className="space-y-6">
+              <h2 className="text-3xl font-bold text-white">Our Vision</h2>
+              <p className="text-gray-300 leading-relaxed">
+                To become India's leading platform for travel enthusiasts, where every journey
+                tells a story and every traveler finds their perfect destination. We envision
+                a connected community of explorers sharing their unique perspectives of India.
+              </p>
+            </div>
+          </div>
+        </section>
       </main>
     </div>
   );
 };
 
+const StatsCard = ({ icon: Icon, count, label }: { icon: any; count: number; label: string }) => (
+  <Card className="glass-card p-6 text-center">
+    <Icon className="w-8 h-8 mx-auto mb-4 text-primary" />
+    <h3 className="text-3xl font-bold text-white mb-2">{count.toLocaleString()}</h3>
+    <p className="text-gray-400">{label}</p>
+  </Card>
+);
+
 const featuredDestinations = [
   {
-    title: "Bali Paradise",
-    location: "Indonesia",
-    image: "https://images.unsplash.com/photo-1513836279014-a89f7a76ae86",
+    title: "Taj Mahal",
+    location: "Agra, Uttar Pradesh",
+    image: "https://images.unsplash.com/photo-1564507592333-c60657eea523",
   },
   {
-    title: "Swiss Alps",
-    location: "Switzerland",
-    image: "https://images.unsplash.com/photo-1458668383970-8ddd3927deed",
+    title: "Varanasi Ghats",
+    location: "Varanasi, Uttar Pradesh",
+    image: "https://images.unsplash.com/photo-1561361513-2d000a50f0dc",
   },
   {
-    title: "Santorini",
-    location: "Greece",
-    image: "https://images.unsplash.com/photo-1469474968028-56623f02e42e",
+    title: "Jaipur Palace",
+    location: "Jaipur, Rajasthan",
+    image: "https://images.unsplash.com/photo-1477587458883-47145ed94245",
   },
 ];
 
 const communityPosts = [
   {
-    author: "Sarah Thompson",
+    author: "Priya Sharma",
     avatar: "https://i.pravatar.cc/150?img=1",
-    content: "Just completed an amazing trek through the Himalayas! The views were absolutely breathtaking. Would love to connect with fellow trekkers!",
+    content: "Just returned from an incredible spiritual journey in Rishikesh! The Ganges at sunset is a sight I'll never forget. Would love to connect with fellow yoga enthusiasts! 🧘‍♀️✨",
     likes: 234,
     date: "2h ago",
   },
   {
-    author: "Michael Chen",
+    author: "Rahul Kumar",
     avatar: "https://i.pravatar.cc/150?img=2",
-    content: "Found this hidden gem in Tokyo! A small ramen shop that will blow your mind. Drop me a message if you want the location!",
+    content: "Exploring the spice markets of Old Delhi! The colors, aromas, and flavors are absolutely mesmerizing. DM me if you want my food trail map! 🌶️🇮🇳",
     likes: 187,
     date: "5h ago",
   },
